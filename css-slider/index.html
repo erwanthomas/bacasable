@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>CSS slideshow</title>
+    <style>
+
+#slideshow {
+  position: relative;
+  width: 600px;
+  height: 400px;
+  margin: 0 auto;
+}
+
+.slide {
+  box-sizing: border-box;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 600px;
+  height: 400px;
+  padding: 10px;
+
+  font-size: 30px;
+  font-weight: 700;
+  color: white;
+  text-shadow: black -1px -1px 2px,
+               black  1px  1px 2px;
+}
+
+.slide:nth-of-type(1) { background-color: black; }
+.slide:nth-of-type(2) { background-color: red;   }
+.slide:nth-of-type(3) { background-color: blue;  }
+.slide:nth-of-type(4) { background-color: green; }
+.slide:nth-of-type(5) { background-color: brown; }
+
+
+/* animation */
+.slide {
+  opacity: 0;
+
+  animation-name: fadeshow;
+  animation-duration: 30s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.slide:nth-of-type(1) { animation-delay:  0s; }
+.slide:nth-of-type(2) { animation-delay:  6s; }
+.slide:nth-of-type(3) { animation-delay: 12s; }
+.slide:nth-of-type(4) { animation-delay: 18s; }
+.slide:nth-of-type(5) { animation-delay: 24s; }
+
+
+@keyframes fadeshow {
+
+  0%    { opacity: 0; }
+  6.7%  { opacity: 1; }
+  20%   { opacity: 1; }
+  26.7% { opacity: 0; }
+  100%  { opacity: 0; }
+
+}
+
+    </style>
+  </head>
+  <body>
+
+<div id="slideshow">
+  <div class="slide" id="s1">1</div>
+  <div class="slide" id="s2">2</div>
+  <div class="slide" id="s3">3</div>
+  <div class="slide" id="s4">4</div>
+  <div class="slide" id="s5">5</div>
+</div>
+
+<p>compteur 1: <span id="compteurS1"></span></p>
+<p>compteur 2: <span id="compteurS2"></span></p>
+<p>compteur 3: <span id="compteurS3"></span></p>
+<p>compteur 4: <span id="compteurS4"></span></p>
+<p>compteur 5: <span id="compteurS5"></span></p>
+
+
+<script>
+
+var init = function () {
+  "use strict";
+
+  var compteurS1 = document.getElementById('compteurS1'),
+      compteurS2 = document.getElementById('compteurS2'),
+      compteurS3 = document.getElementById('compteurS3'),
+      compteurS4 = document.getElementById('compteurS4'),
+      compteurS5 = document.getElementById('compteurS5');
+
+  var chrono = function (sec) {
+    var el = this;
+    if (sec < 31) {
+      el.innerHTML = sec.toString();
+      setTimeout(
+        function () {
+          el.chrono(sec + 1);
+        }, 1000
+      );
+    } else {
+      el.chrono(0);
+    }
+  };
+
+  compteurS1.chrono = chrono;
+  compteurS2.chrono = chrono;
+  compteurS3.chrono = chrono;
+  compteurS4.chrono = chrono;
+  compteurS5.chrono = chrono;
+
+  compteurS1.chrono(0);
+  setTimeout(function () { compteurS2.chrono(0); },  6000);
+  setTimeout(function () { compteurS3.chrono(0); }, 12000);
+  setTimeout(function () { compteurS4.chrono(0); }, 18000);
+  setTimeout(function () { compteurS5.chrono(0); }, 24000);
+};
+
+window.onload = init;
+
+</script>
+
+  </body>
+</html>
